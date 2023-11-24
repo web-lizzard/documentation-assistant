@@ -1,0 +1,13 @@
+services:
+  db:
+    image: chromadb/chroma:0.4.18
+    ports:
+      - 8000:8000
+    environment:
+      - ALOW_RESET=TRUE
+      - IS_PERSISTENT=TRUE
+    volumes:
+      - index_data:/chroma/.chroma/index
+
+volumes:
+  index_data:

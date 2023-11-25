@@ -6,7 +6,7 @@ authors = ["web-lizzard <czarnous.adrian@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "3.11.x"
 langchain = "^0.0.340"
 fastapi = "^0.104.1"
 pydantic-settings = "^2.1.0"

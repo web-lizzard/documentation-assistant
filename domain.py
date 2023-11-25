@@ -4,20 +4,31 @@ from langchain.chat_models.openai import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 from langchain.vectorstores.chroma import Chroma
 
+
 from langchain.vectorstores.pinecone import Pinecone
 from const import INDEX_NAME
 import os
 
+
 from typing import Any
 
+from enum import StrEnum
 
-def run_llm_chroma(query: str, chat_history: list[tuple[str, Any]]) -> Any:
+
+class GPT_MODEL(StrEnum):
+    GPT_3 = "gpt-3.5-turbo"
+    GPT_4 = "gpt-4"
+
+
+def run_llm_chroma(
+    query: str, model: GPT_MODEL, chat_history: list[tuple[str, Any]] = []
+) -> Any:
     embedding = OpenAIEmbeddings()
 
     docsearch = Chroma(
         collection_name="my_collection", embedding_function=embedding, client=client
     )
-    chat = ChatOpenAI(verbose=True, temperature=0)
+    chat = ChatOpenAI(verbose=True, temperature=0, model=model)
     qa = ConversationalRetrievalChain.from_llm(
         llm=chat,
         chain_type="stuff",
